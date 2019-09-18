@@ -1,13 +1,13 @@
 import java.util.Scanner;
 
-public class ex
+public class ex2
 {
     public static void main(String[] args)
     {
         Scanner scan = new Scanner(System.in);
         double x, e = Math.exp(1), sum, factorial = 1;
         int count = 1;
-        double[] factorials = new double[21];
+        double[] factorials = new double[22];
         
         System.out.println("");
         System.out.println("Enter x: ");
@@ -15,7 +15,6 @@ public class ex
         
         System.out.println("");
         sum = x + 1;
-        System.out.println("n:1 \t\t term: " + x + "\t\t\t sum: " + sum);
 
         int count_for_large_factorial_loop = 1;
         int num_currentally_finding_factorial_of = 1;
@@ -35,7 +34,7 @@ public class ex
             count_for_large_factorial_loop ++;
         }
 
-        count = 1;
+        count = 0;
         while (count <= 19)
         {
             double term = Math.pow(x, (count + 1)) / factorials[count + 1];
