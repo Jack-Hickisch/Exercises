@@ -21,14 +21,14 @@ public class BirthdayParadox
         for (int i = 0; go_again; i++)
         {
             current_probability *= ( 365.0 - i ) / 365.0;
-
-            if (current_probability >= 0.5)
+            
+            if (current_probability < 0.5)
             {
                 go_again = false;
                 n_where_found = i;
             }
         }
 
-        System.out.println(n_where_found);
+        System.out.println("The number of guests it takes for there to be more than a 50% chance that none share a birthday is " + (int) n_where_found + " guests");
     }
 }
