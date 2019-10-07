@@ -57,12 +57,7 @@ public class Farkle
         }
         s("");
 
-        int d1 = 0; // dice __
-        int d2 = 0; // dice __
-        int d3 = 0; // dice __
-        int d4 = 0; // dice __
-        int d5 = 0; // dice __
-        int d6 = 0; // dice __
+        int[] roles = new int[6];
 
         int d1c = 0; // dice __ count
         int d2c = 0; // dice __ count
@@ -73,42 +68,45 @@ public class Farkle
 
         for (int i = 0; p1s < 10000 || p2s < 10000; i++)
         {
+            s("Player " + first_player + " roles the following");
+
             for (int j = 0; j < 6; j++)
             {
-                s("Player " + first_player + " roles the following");
+                roles[j] = rtd();
+                System.out.println(roles[j]);
 
-                d1 = rtd();
-                s("1) " + d1);
-
-                d2 = rtd();
-                s("2) " + d2);
-
-                d3 = rtd();
-                s("3) " + d3);
-
-                d4 = rtd();
-                s("4) " + d4);
-
-                d5 = rtd();
-                s("5) " + d5);
-
-                d6 = rtd();
-                s("6) " + d6);
-
-                // for (int k = 0; k < 6; k++)
-                // {
-                //     if (d + (k + 1) == k + 1)
-                //     {
-                //         d + (k + 1) + c += 1; 
-                //     }
-                // }
+                if (roles[j] == 1)
+                {
+                    d1c += 1;
+                }
+                if (roles[j] == 2)
+                {
+                    d2c += 1;
+                }
+                if (roles[j] == 3)
+                {
+                    d3c += 1;
+                }
+                if (roles[j] == 4)
+                {
+                    d4c += 1;
+                }
+                if (roles[j] == 5)
+                {
+                    d5c += 1;
+                }
+                if (roles[j] == 6)
+                {
+                    d6c += 1;
+                }
             }
+
+            
         }
     }
 
     public static int rtd()
     {
-
         return rand.nextInt(6) + 1;
     }
 
@@ -122,4 +120,26 @@ public class Farkle
         System.out.println(string);
     }
 
+    public static boolean isFarkle(d1c, d2c, d3c, d4c, d5c, d6c)
+    {
+        if (d1c < 1 && d5c < 1 && d2c < 3 && d3c < 3 && d4c < 3 && d6c < 3)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static boolean isHotDice(d1c, d2c, d3c, d4c, d5c, d6c, roles)
+    {
+        hdc = 0; 
+
+        for (int i = 0; i < 6; i++)
+        {
+            if (roles[i] == 1 || roles[i] = 5)
+            {
+
+            }
+        }
+    }
 }
