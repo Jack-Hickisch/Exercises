@@ -66,7 +66,7 @@ public class Farkle
         int d5c = 0; // dice __ count
         int d6c = 0; // dice __ count
 
-        for (int i = 0; p1s < 10000 || p2s < 10000; i++)
+        for (int i = 0; p1s < 10000 && p2s < 10000; i++)
         {
             s("Player " + first_player + " roles the following");
 
@@ -101,7 +101,12 @@ public class Farkle
                 }
             }
 
-            
+            boolean hd = isHotDice(roles);
+            System.out.println(hd);
+            if (hd)
+            {
+                p1s = 100000000;
+            }
         }
     }
 
@@ -112,7 +117,7 @@ public class Farkle
 
     public static void ds(int n)
     {
-        System.out.println("You roled a " + n);
+        System.out.println("You rolled a " + n);
     }
     
     public static void s(String string)
@@ -120,26 +125,103 @@ public class Farkle
         System.out.println(string);
     }
 
-    public static boolean isFarkle(d1c, d2c, d3c, d4c, d5c, d6c)
-    {
-        if (d1c < 1 && d5c < 1 && d2c < 3 && d3c < 3 && d4c < 3 && d6c < 3)
-        {
-            return true;
-        }
+    // public static boolean isFarkle()
+    // {
+    //     if (d1c < 1 && d5c < 1 && d2c < 3 && d3c < 3 && d4c < 3 && d6c < 3)
+    //     {
+    //         return true;
+    //     }
 
-        return false;
-    }
+    //     return false;
+    // }
 
-    public static boolean isHotDice(d1c, d2c, d3c, d4c, d5c, d6c, roles)
+    public static boolean isHotDice(int[] roles)
     {
-        hdc = 0; 
+        int hdc = 0; // hot dice count
 
         for (int i = 0; i < 6; i++)
         {
-            if (roles[i] == 1 || roles[i] = 5)
+            if (roles[i] == 1 || roles[i] == 5)
             {
-
+                hdc += 1;
             }
+
+            else if (roles[i] == 2)
+            {
+                int c2 = 0; // two count
+                for (int j = 0; j < 6; j++)
+                {
+                    if (roles[j] == 2)
+                    {
+                        c2 += 1;
+                    }
+                }
+
+                if (c2 == 3)
+                {
+                    hdc += 1;
+                }
+            }
+
+            else if (roles[i] == 3)
+            {
+                int c3 = 0; // three count
+                for (int j = 0; j < 6; j++)
+                {
+                    if (roles[j] == 3)
+                    {
+                        c3 += 1;
+                    }
+                }
+
+                if (c3 == 3)
+                {
+                    hdc += 1;
+                }
+            }
+
+            else if (roles[i] == 4)
+            {
+                int c4 = 0; // four count
+                for (int j = 0; j < 6; j++)
+                {
+                    if (roles[j] == 4)
+                    {
+                        c4 += 1;
+                    }
+                }
+
+                if (c4 == 3)
+                {
+                    hdc += 1;
+                }
+            }
+
+            else if (roles[i] == 6)
+            {
+                int c6 = 0; // six count
+                for (int j = 0; j < 6; j++)
+                {
+                    if (roles[j] == 6)
+                    {
+                        c6 += 1;
+                    }
+                }
+
+                if (c6 == 3)
+                {
+                    hdc += 1;
+                }
+            }
+        }
+
+        if (hdc == 6)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }
