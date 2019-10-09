@@ -101,12 +101,19 @@ public class Farkle
                 }
             }
 
-            boolean hd = isHotDice(roles);
+            boolean hd = isFarkle(d1c, d2c, d3c, d4c, d5c, d6c);
             System.out.println(hd);
             if (hd)
             {
                 p1s = 100000000;
             }
+
+            d1c = 0; // dice __ count
+            d2c = 0; // dice __ count
+            d3c = 0; // dice __ count
+            d4c = 0; // dice __ count
+            d5c = 0; // dice __ count
+            d6c = 0; // dice __ count
         }
     }
 
@@ -125,15 +132,17 @@ public class Farkle
         System.out.println(string);
     }
 
-    // public static boolean isFarkle()
-    // {
-    //     if (d1c < 1 && d5c < 1 && d2c < 3 && d3c < 3 && d4c < 3 && d6c < 3)
-    //     {
-    //         return true;
-    //     }
-
-    //     return false;
-    // }
+    public static boolean isFarkle(int d1c, int d2c, int d3c, int d4c, int d5c, int d6c)
+    {
+        if (d1c < 1 && d5c < 1 && d2c < 3 && d3c < 3 && d4c < 3 && d6c < 3)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     public static boolean isHotDice(int[] roles)
     {
