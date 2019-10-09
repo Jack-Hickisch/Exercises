@@ -20,7 +20,7 @@ public class Farkle
 
         s("");
 
-        s("We will now role the dice, player 1, your turn"); // s = say
+        s("We will now roll the dice, player 1, your turn"); // s = say
         int p1fr = rtd(); // player-1-first-role; role-the-dice
         ds(p1fr); // dice-statment
 
@@ -57,7 +57,7 @@ public class Farkle
         }
         s("");
 
-        int[] roles = new int[6];
+        int[] rolls = new int[6];
 
         int d1c = 0; // dice __ count
         int d2c = 0; // dice __ count
@@ -68,52 +68,155 @@ public class Farkle
 
         for (int i = 0; p1s < 10000 && p2s < 10000; i++)
         {
-            s("Player " + first_player + " roles the following");
+            boolean dice_number_1_put_aside = false;
+            boolean dice_number_2_put_aside = false;
+            boolean dice_number_3_put_aside = false;
+            boolean dice_number_4_put_aside = false;
+            boolean dice_number_5_put_aside = false;
+            boolean dice_number_6_put_aside = false;
 
-            for (int j = 0; j < 6; j++)
+            for (boolean done_with_first_player_turn = false; !done_with_first_player_turn;)
             {
-                roles[j] = rtd();
-                System.out.println(roles[j]);
+                s("Player " + first_player + " rolls the following");
 
-                if (roles[j] == 1)
+                for (int j = 0; j < 6; j++)
                 {
-                    d1c += 1;
+                    if (!dice_number_1_put_aside && j == 0)
+                    {
+                        rolls[j] = rtd();
+                        System.out.println(rolls[j]);
+                    }
+                    if (!dice_number_2_put_aside && j == 1)
+                    {
+                        rolls[j] = rtd();
+                        System.out.println(rolls[j]);
+                    }
+                    if (!dice_number_3_put_aside && j == 2)
+                    {
+                        rolls[j] = rtd();
+                        System.out.println(rolls[j]);
+                    }
+                    if (!dice_number_4_put_aside && j == 3)
+                    {
+                        rolls[j] = rtd();
+                        System.out.println(rolls[j]);
+                    }
+                    if (!dice_number_5_put_aside && j == 4)
+                    {
+                        rolls[j] = rtd();
+                        System.out.println(rolls[j]);
+                    }
+                    if (!dice_number_6_put_aside && j == 5)
+                    {
+                        rolls[j] = rtd();
+                        System.out.println(rolls[j]);
+                    }
+
+                    if (rolls[j] == 1)
+                    {
+                        d1c += 1;
+                    }
+                    if (rolls[j] == 2)
+                    {
+                        d2c += 1;
+                    }
+                    if (rolls[j] == 3)
+                    {
+                        d3c += 1;
+                    }
+                    if (rolls[j] == 4)
+                    {
+                        d4c += 1;
+                    }
+                    if (rolls[j] == 5)
+                    {
+                        d5c += 1;
+                    }
+                    if (rolls[j] == 6)
+                    {
+                        d6c += 1;
+                    }
                 }
-                if (roles[j] == 2)
+
+                s("");
+
+                if (!isFarkle(d1c, d2c, d3c, d4c, d5c, d6c) && !isHotDice(rolls))
                 {
-                    d2c += 1;
+                    done_with_first_player_turn = true;
+
+                    for (boolean keep_asking_for_dice = true; keep_asking_for_dice;)
+                    {
+                        s("Which number would you like to put aside? (enter the place of the numbers in the list or input 0 end putting aside)");
+                        int number_entered = scan.nextInt();
+
+                        dice_number_1_put_aside = number_entered == 1;
+                        dice_number_2_put_aside = number_entered == 2;
+                        dice_number_3_put_aside = number_entered == 3;
+                        dice_number_4_put_aside = number_entered == 4;
+                        dice_number_5_put_aside = number_entered == 5;
+                        dice_number_6_put_aside = number_entered == 6;
+        
+                        if (number_entered == 0)
+                        {
+                            keep_asking_for_dice = false;
+                        }
+                        else if (number_entered != 1 || number_entered != 2 || number_entered != 3 || number_entered != 4 || number_entered != 5 || number_entered != 6)
+                        {
+                            s("That is not a valid input or you did not put aside at least one dice");
+                        }
+
+                        if (keep_asking_for_dice)
+                        {
+                            s("");
+
+                            s("Would you like to continue? (0 = no, any other # = yes)");
+                            int continue_with_putting_aside = scan.nextInt();
+                            if (continue_with_putting_aside == 0)
+                            {
+                                keep_asking_for_dice = false;
+                            }
+                            else
+                            {
+                                keep_asking_for_dice = true;
+                            }
+
+                            s("");
+                        }
+                    }
                 }
-                if (roles[j] == 3)
+                else if (isFarkle(d1c, d2c, d3c, d4c, d5c, d6c))
                 {
-                    d3c += 1;
+                    p1s += 0;
+                    s("You roled a Farkle and the turn will now pass to the second player");
+                    done_with_first_player_turn = true;
                 }
-                if (roles[j] == 4)
+                else
                 {
-                    d4c += 1;
+                    s("You roled Hot Dice and will need to re-role all of your dice");
+                    done_with_first_player_turn = false;
                 }
-                if (roles[j] == 5)
-                {
-                    d5c += 1;
-                }
-                if (roles[j] == 6)
-                {
-                    d6c += 1;
-                }
+
+                // boolean hd = isFarkle(d1c, d2c, d3c, d4c, d5c, d6c);
+                // System.out.println(hd);
+                // if (hd)
+                // {
+                //     p1s = 100000000;
+                // }
+
+                d1c = 0; // dice __ count
+                d2c = 0; // dice __ count
+                d3c = 0; // dice __ count
+                d4c = 0; // dice __ count
+                d5c = 0; // dice __ count
+                d6c = 0; // dice __ count
+
+                rolls[0] = 0;
+                rolls[1] = 0;
+                rolls[2] = 0;
+                rolls[3] = 0;
+                rolls[4] = 0;
+                rolls[5] = 0;
             }
-
-            boolean hd = isFarkle(d1c, d2c, d3c, d4c, d5c, d6c);
-            System.out.println(hd);
-            if (hd)
-            {
-                p1s = 100000000;
-            }
-
-            d1c = 0; // dice __ count
-            d2c = 0; // dice __ count
-            d3c = 0; // dice __ count
-            d4c = 0; // dice __ count
-            d5c = 0; // dice __ count
-            d6c = 0; // dice __ count
         }
     }
 
@@ -144,23 +247,23 @@ public class Farkle
         }
     }
 
-    public static boolean isHotDice(int[] roles)
+    public static boolean isHotDice(int[] rolls)
     {
         int hdc = 0; // hot dice count
 
         for (int i = 0; i < 6; i++)
         {
-            if (roles[i] == 1 || roles[i] == 5)
+            if (rolls[i] == 1 || rolls[i] == 5)
             {
                 hdc += 1;
             }
 
-            else if (roles[i] == 2)
+            else if (rolls[i] == 2)
             {
                 int c2 = 0; // two count
                 for (int j = 0; j < 6; j++)
                 {
-                    if (roles[j] == 2)
+                    if (rolls[j] == 2)
                     {
                         c2 += 1;
                     }
@@ -172,12 +275,12 @@ public class Farkle
                 }
             }
 
-            else if (roles[i] == 3)
+            else if (rolls[i] == 3)
             {
                 int c3 = 0; // three count
                 for (int j = 0; j < 6; j++)
                 {
-                    if (roles[j] == 3)
+                    if (rolls[j] == 3)
                     {
                         c3 += 1;
                     }
@@ -189,12 +292,12 @@ public class Farkle
                 }
             }
 
-            else if (roles[i] == 4)
+            else if (rolls[i] == 4)
             {
                 int c4 = 0; // four count
                 for (int j = 0; j < 6; j++)
                 {
-                    if (roles[j] == 4)
+                    if (rolls[j] == 4)
                     {
                         c4 += 1;
                     }
@@ -206,12 +309,12 @@ public class Farkle
                 }
             }
 
-            else if (roles[i] == 6)
+            else if (rolls[i] == 6)
             {
                 int c6 = 0; // six count
                 for (int j = 0; j < 6; j++)
                 {
-                    if (roles[j] == 6)
+                    if (rolls[j] == 6)
                     {
                         c6 += 1;
                     }
