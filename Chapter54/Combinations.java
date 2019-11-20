@@ -50,11 +50,11 @@ public class Combinations
         return returnNumber;
     }
 
-    public static int combinationsAnswer(double n , double r)
+    public static double combinationsAnswer(double n , double r)
     {
-        System.out.println(factorialAnswer(n));
-        System.out.println(factorialAnswer(r));
-        System.out.println(factorialAnswer(n - r));
+        // System.out.println(factorialAnswer(n));
+        // System.out.println(factorialAnswer(r));
+        // System.out.println(factorialAnswer(n - r));
         return factorialAnswer(n) / (factorialAnswer(r) * factorialAnswer( n - r ));
     }
 }
