@@ -16,13 +16,16 @@ class TwoLargestElements
     {
         if (largest < data[index])
         {
-            largest = data.index;
+            largest = data[index];
         }
-        if 
+        else if (secondLargest < data[index])
+        {
+          secondLargest = data[index];
+        }
     }
       
     // write out the two largest
-    System.out.println(  );
+    System.out.println("The largest number is: " + largest + " and the 2nd largest is: " + secondLargest);
 
   }
 }     
