@@ -49,9 +49,7 @@ public class Geolocation
 
     public double distance(double lat, double lon)
     {
-        double a = Math.pow(Math.sin(Math.abs(latitude - lat) / 2.0), 2.0) + Math.cos(
-                   lat) * Math.cos(latitude) * Math.pow(Math.sin(Math.abs(
-                   longitude - lon) / 2.0), 2.0);
+        double a = Math.pow(Math.sin(Math.abs((latitude * Math.PI / 180) - (lat * Math.PI / 180)) / 2.0), 2.0) + Math.cos((lat * Math.PI / 180)) * Math.cos((latitude * Math.PI / 180)) * Math.pow(Math.sin(Math.abs((longitude  * Math.PI / 180) - (lon * Math.PI / 180)) / 2.0), 2.0);
         double c = 2.0 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         
         System.out.println(a);
